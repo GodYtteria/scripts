@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Syrius Magic Monitor</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .scrollable-table {
+            justify-content: center;
+            overflow-x: auto; /* Enables horizontal scrolling */
+            overflow-y: auto; /* Enables vertical scrolling */
+            max-width: 600px; /* Adjust based on your preference */
+            margin: 20px 0; /* Adds some spacing around each table */
+            width: auto;
+        }
+        table {
+            margin-left: auto;
+            margin-right: auto; /* Center the table itself */
+            display: block; /* Necessary for the table to respect the max-height of its parent */
+            width: 100%; /* Adjust based on your preference */
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center; /* Center aligns text in cells */
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Syrius Crypto Magic Monitor Signal (GMT +8)</h1>
+        
+        <!-- Form for symbol selection and sorting -->
+        <form action="/" method="get">
+            <!-- Symbol Selection Dropdown -->
+            <label for="symbol">Choose a Symbol:</label>
+            <select name="symbol" id="symbol">
+                <!-- Options will be filled dynamically from Flask. Placeholders added for demonstration. -->
+                <option value="all">All Symbols</option>
+                <!-- Example: <option value="BTC">BTC</option> -->
+            </select>
+
+            <!-- Sorting Checkbox -->
+            <label><input type="checkbox" name="sort" value="True"> Sort by Price</label>
+
+            <!-- Submit Button -->
+            <button type="submit">Update View</button>
+        </form>
+
+        {% for table in tables_with_titles %}
+            <h2>{{ table.title }}</h2>
+            <div class="scrollable-table">
+                {{ table.data_html|safe }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
